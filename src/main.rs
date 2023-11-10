@@ -95,6 +95,7 @@ mod tests {
         let string_replace = String::from("I like rust. Learning rust is my favorite!");
         let new_string_replace = string_replace.replace("rust", "RUST");
         println!("追加字符 push() -> {}", new_string_replace);
+        // The code also uses the dbg!() macro to print the value of variables to the console, which can be helpful for debugging purposes.
         dbg!(new_string_replace);
     }
 
