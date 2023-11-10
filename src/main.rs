@@ -99,4 +99,13 @@ mod tests {
         dbg!(new_string_replace);
     }
 
+    #[test]
+    // string 切片的 push 方法 字符串变量必须由 mut 关键字修饰。
+    fn str_delete() {
+        let mut string_clear = String::from("string clear");
+        string_clear.clear();
+        dbg!(string_clear);
+    }
+
+
 }
