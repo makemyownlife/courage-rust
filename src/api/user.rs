@@ -23,6 +23,8 @@ pub fn add(x: i32, y: i32) -> i32 {
 
 #[cfg(test)]
 mod tests {
+    use crate::api::user::User;
+
     #[test]
     fn it_works() {
         println!("Hello, mytest!");
@@ -117,6 +119,26 @@ mod tests {
         let mut string_clear = String::from("string clear");
         string_clear.clear();
         dbg!(string_clear);
+    }
+
+    #[test]
+    //初始化实例时，每个字段都需要进行初始化 初始化时的字段顺序不需要和结构体定义时的顺序一致
+    fn raw_user() {
+        let user1 = User {
+            name: String::from("someone@example.com"),
+            age: 12,
+        };
+    }
+
+    #[test]
+    //需要注意的是，必须要将结构体实例声明为可变的，才能修改其中的字段，Rust 不支持将某个结构体某个字段标记为可变。
+    fn mut_raw_user() {
+        let mut user1 = User {
+            name: String::from("someone@example.com"),
+            age: 12,
+        };
+        user1.name = String::from("mylife");
+        println!("追加字符 user1.name  {}", user1.name);
     }
 
 
