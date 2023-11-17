@@ -4,6 +4,15 @@ pub struct User {
     age: i32
 }
 
+// 定义一个新的用户
+#[derive(Debug)]
+struct MyUser {
+    active: bool,
+    username: String,
+    email: String,
+    sign_in_count: u64,
+}
+
 impl User {
     pub fn new_user(name: String, age: i32) -> User {
         User{
@@ -23,6 +32,8 @@ pub fn add(x: i32, y: i32) -> i32 {
 
 #[cfg(test)]
 mod tests {
+    use crate::api::user::MyUser;
+
     #[test]
     fn it_works() {
         println!("Hello, mytest!");
@@ -132,6 +143,26 @@ mod tests {
     fn calculate_length(s: String) -> (String, usize) {
         let length = s.len(); // len() 返回字符串的长度
         (s, length)
+    }
+
+    #[test]
+    // username 所有权被转移给了 user2，导致了 user1 无法再被使用，但是并不代表 user1 内部的其它字段不能被继续使用，例如：
+    fn user_test() {
+        let user1 = MyUser {
+            email: String::from("someone@example.com"),
+            username: String::from("someusername123"),
+            active: true,
+            sign_in_count: 1,
+        };
+        let user2 = MyUser {
+            active: user1.active,
+            username: user1.username,
+            email: String::from("another@example.com"),
+            sign_in_count: user1.sign_in_count,
+        };
+        println!("{}", user1.active);
+        //下面这行会报错
+      // println!("{:?}", user1);
     }
 
 
